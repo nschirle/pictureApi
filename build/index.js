@@ -4,13 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var image_1 = __importDefault(require("./Routes/Image/image"));
 var app = express_1.default();
 var port = 3000;
-var wiki = require('./Routes/Image/image');
+//const wiki = require("./Routes/Image/image");
 // ...
-app.use('/wiki', wiki);
-app.get('/', function (req, res) {
-    res.send('Hello Test World!');
+app.use("/wiki", image_1.default);
+app.get("/", function (req, res) {
+    res.send("Hello Test World!");
 });
 app.listen(port, function () {
     console.log("Example app listening at http://localhost:" + port);

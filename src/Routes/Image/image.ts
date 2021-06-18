@@ -1,6 +1,6 @@
 import express from "express";
 
-var router = express.Router();
+const router = express.Router();
 
 // Home page route.
 router.get("/", function (req, res) {
@@ -12,4 +12,4 @@ router.get("/about", function (req, res) {
   res.send("About this wiki");
 });
 
-module.exports = router;
+export default router;

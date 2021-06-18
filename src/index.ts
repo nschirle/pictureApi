@@ -1,8 +1,9 @@
 import express from "express";
+import wiki from "./Routes/Image/image"
 
 const app = express();
 const port = 3000;
-const wiki = require("./Routes/Image/image");
+//const wiki = require("./Routes/Image/image");
 // ...
 app.use("/wiki", wiki);
 app.get("/", (req, res) => {
