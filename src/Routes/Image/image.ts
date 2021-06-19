@@ -4,12 +4,12 @@ import sharp from "sharp";
 import getPhotos from "./imageHelper";
 const router = express.Router();
 
-// Home page route.
+// list all photos in dir.
 router.get("/", function (req, res) {
   res.send(getPhotos());
 });
 
-// About page route.
+// return photo of specfic size.
 router.get("/:name", function (req, res) {
   const name = req.params.name;
   const width = Number(req.query.width);
