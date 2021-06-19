@@ -9,9 +9,9 @@ var app = express_1.default();
 var port = 3000;
 //const wiki = require("./Routes/Image/image");
 // ...
-app.use("/wiki", image_1.default);
+app.use("/photo", image_1.default);
 app.get("/", function (req, res) {
-    res.send("Hello Test World!");
+    res.send("Express Is online and running");
 });
 app.listen(port, function () {
     console.log("Example app listening at http://localhost:" + port);

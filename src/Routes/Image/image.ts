@@ -1,4 +1,5 @@
 import express from "express";
+import fs from "fs";
 
 const router = express.Router();
 
@@ -8,8 +9,14 @@ router.get("/", function (req, res) {
 });
 
 // About page route.
-router.get("/about", function (req, res) {
-  res.send("About this wiki");
+router.get("/photo/", function (req, res) {
+  //let name = req.params.name;
+  fs.readFile("./photos/192.jpg", function (err, data) {
+    if (err) {
+      throw err;
+    }
+    res.sendFile("C:/repo/pictureApi/photos/192.jpg");
+  });
 });
 
 export default router;
