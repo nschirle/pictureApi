@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path";
+import fs from "fs";
 import wiki from "./Routes/Image/image";
 
 const app = express();
