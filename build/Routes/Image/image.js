@@ -46,16 +46,19 @@ var fs_1 = __importDefault(require("fs"));
 //import fileupload, { UploadedFile } from "express-fileupload";
 var multer_1 = __importDefault(require("multer"));
 var router = express_1.default.Router();
-var upload = multer_1.default({ dest: './photos/',
+var upload = multer_1.default({
+    dest: "./photos/",
     fileFilter: function (req, file, cb) {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+        if (file.mimetype == "image/png" ||
+            file.mimetype == "image/jpg" ||
+            file.mimetype == "image/jpeg") {
             cb(null, true);
         }
         else {
             cb(null, false);
-            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+            return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
         }
-    }
+    },
 });
 // health ping for API surface.
 router.get("/", function (req, res) {
@@ -84,30 +87,28 @@ router.post("/", upload.single("file"), function (req, res) {
     });
 });
 // return photo of specfic size.
-router.get("/:name", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var name, width, height, photoPath;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                name = req.params.name;
-                width = String(req.query.width);
-                height = String(req.query.height);
-                console.log("received");
-                return [4 /*yield*/, imageHelper_1.default.getPhotoPath(name, height, width)];
-            case 1:
-                photoPath = _a.sent();
-                if (photoPath == "-1") {
-                    res
-                        .status(404)
-                        .send("please request a valid image name");
-                }
-                else {
-                    res
-                        .status(200)
-                        .sendFile(path_1.default.resolve(photoPath));
-                }
-                return [2 /*return*/];
-        }
+router.get("/:name", function (req, res) {
+    return __awaiter(this, void 0, void 0, function () {
+        var name, width, height, photoPath;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    name = req.params.name;
+                    width = String(req.query.width);
+                    height = String(req.query.height);
+                    console.log("received");
+                    return [4 /*yield*/, imageHelper_1.default.getPhotoPath(name, height, width)];
+                case 1:
+                    photoPath = _a.sent();
+                    if (photoPath == "-1") {
+                        res.status(404).send("please request a valid image name");
+                    }
+                    else {
+                        res.status(200).sendFile(path_1.default.resolve(photoPath));
+                    }
+                    return [2 /*return*/];
+            }
+        });
     });
-}); });
+});
 exports.default = router;

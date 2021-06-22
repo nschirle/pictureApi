@@ -82,5 +82,5 @@ function getPhotoPath(name, height, width) {
 */
 exports.default = {
     getPhotos: getPhotos,
-    getPhotoPath: getPhotoPath
+    getPhotoPath: getPhotoPath,
 };

@@ -6,29 +6,31 @@ function getPhotos(dir: string): Array<string> {
   return files;
 }
 
-
-async function getPhotoPath(name: string, height: string, width: string): Promise<string>{
+async function getPhotoPath(
+  name: string,
+  height: string,
+  width: string
+): Promise<string> {
   const Width = Number(width);
   const Height = Number(height);
   const fileNotFound = "-1";
   const originalPhotos = fs.readdirSync(path.resolve("./Photos/"));
   const resizedPhotos = fs.readdirSync(path.resolve("./resizedPhotos/"));
-  if(resizedPhotos.includes(name + height + width + ".png")){
-    return path.resolve("./resizedPhotos/" + name + height + width + ".png")
+  if (resizedPhotos.includes(name + height + width + ".png")) {
+    return path.resolve("./resizedPhotos/" + name + height + width + ".png");
   }
-  if(originalPhotos.includes(name + ".jpg")){
+  if (originalPhotos.includes(name + ".jpg")) {
     await sharp("./photos/" + name + ".jpg")
       .resize({ width: Width, height: Height })
       .toFormat("png")
       .png({ quality: 100 })
       .toFile("./resizedPhotos/" + name + height + width + ".png");
-    
-    return "./resizedPhotos/" + name + height + width + ".png"
+
+    return "./resizedPhotos/" + name + height + width + ".png";
   }
 
   return fileNotFound;
 }
-
 
 /*async function uploadPhoto(name: string): Promise<string>{
   const photoPath =  fs.readdirSync(path.resolve("./Photos/"));
@@ -37,8 +39,7 @@ async function getPhotoPath(name: string, height: string, width: string): Promis
 }
 */
 
-
-export default{
+export default {
   getPhotos,
-  getPhotoPath
-} 
+  getPhotoPath,
+};

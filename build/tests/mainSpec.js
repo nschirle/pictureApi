@@ -44,18 +44,19 @@ var imageHelper_1 = __importDefault(require("../Routes/Image/imageHelper"));
 var index_1 = __importDefault(require("../index"));
 var path_1 = __importDefault(require("path"));
 //import { application } from "express";
+supertest_1.default("http://localhost:5555");
 describe("simple test for getting list of photos", function () {
-    it('expect the return to be an array of photo names', function () {
+    it("expect the return to be an array of photo names", function () {
         expect(imageHelper_1.default.getPhotos("photos")).toBeInstanceOf(Array);
     });
 });
 describe("simple test for getting list of photos", function () {
-    it('expect the return to be an array of photo names', function () {
+    it("expect the return to be an array of photo names", function () {
         expect(imageHelper_1.default.getPhotos("photos").includes("fjord.jpg")).toBeTrue;
     });
 });
 describe("simple test for getting list of photos", function () {
-    it('expect the return to be an array of photo names', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("expect the return to be an array of photo names", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -69,24 +70,21 @@ describe("simple test for getting list of photos", function () {
     }); });
 });
 describe("simple test for getting list of photos", function () {
-    it('expect the return to be an array of photo names', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("expect the return to be an array of photo names", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, imageHelper_1.default.getPhotoPath("doesNotExist", "400", "400")];
                 case 1:
                     result = _a.sent();
-                    expect((result)).toEqual("-1");
+                    expect(result).toEqual("-1");
                     return [2 /*return*/];
             }
         });
     }); });
 });
-describe('GET /photo/', function () {
-    it('should respond with json', function (done) {
-        supertest_1.default(index_1.default)
-            .get('/photos')
-            .expect(200)
-            .end(done);
+describe("GET /photo/", function () {
+    it("should respond with json", function (done) {
+        supertest_1.default(index_1.default).get("/photo").expect(200).end(done);
     });
 });

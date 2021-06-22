@@ -1,21 +1,18 @@
 import express from "express";
 import wiki from "./Routes/Image/image";
 
-
 const app = express();
 const port = 3000;
 //const wiki = require("./Routes/Image/image");
 // ...
 app.use("/photo", wiki);
 
-
-app.get("/", (req, res) => {
+app.get("/", function(req: any, res: any): void {
   res.send("Express Is online and running");
 });
 
-app.listen(port, () => {
+app.listen(port, function(): void {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
 export default app;
-module.exports = app.listen(3000);
