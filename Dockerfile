@@ -16,4 +16,4 @@ RUN npm ci --only=production
 COPY . .
 
 EXPOSE 3000
-CMD [ "dumb-init", "node", "./build/index.js" ]
+CMD [ "node", "./build/index.js" ]
