@@ -23,7 +23,7 @@ async function getPhotoPath(name: string, height: string, width: string): Promis
       .png({ quality: 100 })
       .toFile("./resizedPhotos/" + name + height + width + ".png");
     
-    return path.resolve("./resizedPhotos/" + name + height + width + ".png")
+    return "./resizedPhotos/" + name + height + width + ".png"
   }
 
   return fileNotFound;

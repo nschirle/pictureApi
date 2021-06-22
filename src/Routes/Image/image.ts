@@ -23,6 +23,7 @@ const upload = multer({dest: './photos/',
 
 // health ping for API surface.
 router.get("/", function (req, res) {
+  console.log("Photo API is functioning");
   res.send("Photo API is functioning");
 });
 
@@ -56,6 +57,7 @@ router.get("/:name",  async  (req, res) => {
   const name = req.params.name;
   const width = String(req.query.width);
   const height = String(req.query.height);
+  console.log("received");
   const photoPath = await photoHelper.getPhotoPath(name, height, width);
   if (photoPath == "-1"){
     res
@@ -68,6 +70,7 @@ router.get("/:name",  async  (req, res) => {
       .sendFile(path.resolve(photoPath)
       );
   }
+  
 });
 
 export default router;

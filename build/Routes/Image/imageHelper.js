@@ -68,7 +68,7 @@ function getPhotoPath(name, height, width) {
                             .toFile("./resizedPhotos/" + name + height + width + ".png")];
                 case 1:
                     _a.sent();
-                    return [2 /*return*/, path_1.default.resolve("./resizedPhotos/" + name + height + width + ".png")];
+                    return [2 /*return*/, "./resizedPhotos/" + name + height + width + ".png"];
                 case 2: return [2 /*return*/, fileNotFound];
             }
         });

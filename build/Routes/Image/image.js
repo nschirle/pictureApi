@@ -59,6 +59,7 @@ var upload = multer_1.default({ dest: './photos/',
 });
 // health ping for API surface.
 router.get("/", function (req, res) {
+    console.log("Photo API is functioning");
     res.send("Photo API is functioning");
 });
 //gets photos that can be resized
@@ -91,6 +92,7 @@ router.get("/:name", function (req, res) { return __awaiter(void 0, void 0, void
                 name = req.params.name;
                 width = String(req.query.width);
                 height = String(req.query.height);
+                console.log("received");
                 return [4 /*yield*/, imageHelper_1.default.getPhotoPath(name, height, width)];
             case 1:
                 photoPath = _a.sent();
