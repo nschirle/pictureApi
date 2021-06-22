@@ -42,34 +42,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(require("fs"));
 var sharp_1 = __importDefault(require("sharp"));
 var path_1 = __importDefault(require("path"));
-function getPhotos() {
-    var files = fs_1.default.readdirSync("./photos/");
+function getPhotos(dir) {
+    var files = fs_1.default.readdirSync("./" + dir + "/");
     return files;
 }
 function getPhotoPath(name, height, width) {
     return __awaiter(this, void 0, void 0, function () {
         var Width, Height, fileNotFound, originalPhotos, resizedPhotos;
         return __generator(this, function (_a) {
-            Width = Number(width);
-            Height = Number(height);
-            fileNotFound = "-1";
-            originalPhotos = fs_1.default.readdirSync(path_1.default.resolve("./Photos/"));
-            resizedPhotos = fs_1.default.readdirSync(path_1.default.resolve("./resizedPhotos/"));
-            if (resizedPhotos.includes(name + height + width + ".png")) {
-                return [2 /*return*/, path_1.default.resolve("./resizedPhotos/" + name + height + width + ".png")];
+            switch (_a.label) {
+                case 0:
+                    Width = Number(width);
+                    Height = Number(height);
+                    fileNotFound = "-1";
+                    originalPhotos = fs_1.default.readdirSync(path_1.default.resolve("./Photos/"));
+                    resizedPhotos = fs_1.default.readdirSync(path_1.default.resolve("./resizedPhotos/"));
+                    if (resizedPhotos.includes(name + height + width + ".png")) {
+                        return [2 /*return*/, path_1.default.resolve("./resizedPhotos/" + name + height + width + ".png")];
+                    }
+                    if (!originalPhotos.includes(name + ".jpg")) return [3 /*break*/, 2];
+                    return [4 /*yield*/, sharp_1.default("./photos/" + name + ".jpg")
+                            .resize({ width: Width, height: Height })
+                            .toFormat("png")
+                            .png({ quality: 100 })
+                            .toFile("./resizedPhotos/" + name + height + width + ".png")];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/, path_1.default.resolve("./resizedPhotos/" + name + height + width + ".png")];
+                case 2: return [2 /*return*/, fileNotFound];
             }
-            if (originalPhotos.includes(name + ".jpg")) {
-                sharp_1.default("./photos/" + name + ".jpg")
-                    .resize({ width: Width, height: Height })
-                    .toFormat("png")
-                    .png({ quality: 100 })
-                    .toFile("./resizedPhotos/" + name + height + width + ".png");
-                return [2 /*return*/, path_1.default.resolve("./resizedPhotos/" + name + height + width + ".png")];
-            }
-            return [2 /*return*/, fileNotFound];
         });
     });
 }
+/*async function uploadPhoto(name: string): Promise<string>{
+  const photoPath =  fs.readdirSync(path.resolve("./Photos/"));
+  fs.writeFileSync(photoPath + name + ".jpg");
+
+}
+*/
 exports.default = {
     getPhotos: getPhotos,
     getPhotoPath: getPhotoPath

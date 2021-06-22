@@ -1,10 +1,11 @@
 import fs from "fs";
 import sharp from "sharp";
 import path from "path";
-function getPhotos(): Array<string> {
-  const files = fs.readdirSync("./photos/");
+function getPhotos(dir: string): Array<string> {
+  const files = fs.readdirSync("./" + dir + "/");
   return files;
 }
+
 
 async function getPhotoPath(name: string, height: string, width: string): Promise<string>{
   const Width = Number(width);
@@ -16,7 +17,7 @@ async function getPhotoPath(name: string, height: string, width: string): Promis
     return path.resolve("./resizedPhotos/" + name + height + width + ".png")
   }
   if(originalPhotos.includes(name + ".jpg")){
-    sharp("./photos/" + name + ".jpg")
+    await sharp("./photos/" + name + ".jpg")
       .resize({ width: Width, height: Height })
       .toFormat("png")
       .png({ quality: 100 })
@@ -27,6 +28,16 @@ async function getPhotoPath(name: string, height: string, width: string): Promis
 
   return fileNotFound;
 }
+
+
+/*async function uploadPhoto(name: string): Promise<string>{
+  const photoPath =  fs.readdirSync(path.resolve("./Photos/"));
+  fs.writeFileSync(photoPath + name + ".jpg");
+
+}
+*/
+
+
 export default{
   getPhotos,
   getPhotoPath

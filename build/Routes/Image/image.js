@@ -42,10 +42,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var imageHelper_1 = __importDefault(require("./imageHelper"));
+var fs_1 = __importDefault(require("fs"));
+//import fileupload, { UploadedFile } from "express-fileupload";
+var multer_1 = __importDefault(require("multer"));
 var router = express_1.default.Router();
-// list all photos in dir.
+var upload = multer_1.default({ dest: './photos/',
+    fileFilter: function (req, file, cb) {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        }
+        else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
+// health ping for API surface.
 router.get("/", function (req, res) {
-    res.send(imageHelper_1.default.getPhotos());
+    res.send("Photo API is functioning");
+});
+//gets photos that can be resized
+router.get("/list", function (req, res) {
+    res.send(imageHelper_1.default.getPhotos("photos"));
+});
+//gets all photos in cache
+router.get("/cache", function (req, res) {
+    res.send(imageHelper_1.default.getPhotos("resizedPhotos"));
+});
+router.post("/", upload.single("file"), function (req, res) {
+    var photos = req.file;
+    if (!req.file) {
+        res.status(400).send("no photo attached");
+    }
+    var original = photos === null || photos === void 0 ? void 0 : photos.originalname;
+    fs_1.default.rename("./photos/" + (photos === null || photos === void 0 ? void 0 : photos.filename), "./photos/" + original, function (err) {
+        if (err) {
+            res.send(err);
+        }
+        res.status(200).send("photo uploaded");
+    });
 });
 // return photo of specfic size.
 router.get("/:name", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -62,7 +97,7 @@ router.get("/:name", function (req, res) { return __awaiter(void 0, void 0, void
                 if (photoPath == "-1") {
                     res
                         .status(404)
-                        .send("please request a valid image");
+                        .send("please request a valid image name");
                 }
                 else {
                     res
