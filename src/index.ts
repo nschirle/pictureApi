@@ -7,7 +7,7 @@ const port = 3000;
 // ...
 app.use("/photo", wiki);
 
-app.get("/", function(req: any, res: any): void {
+app.get("/", function(req: express.Request, res: express.Response): void {
   res.send("Express Is online and running");
 });
 

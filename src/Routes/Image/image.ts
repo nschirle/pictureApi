@@ -24,22 +24,22 @@ const upload = multer({
 });
 
 // health ping for API surface.
-router.get("/", function (req: any, res: any): void {
+router.get("/", function (req: express.Request, res: express.Response): void {
   console.log("Photo API is functioning");
   res.send("Photo API is functioning");
 });
 
 //gets photos that can be resized
-router.get("/list", function (req: any, res: any): void {
+router.get("/list", function (req: express.Request, res: express.Response): void {
   res.send(photoHelper.getPhotos("photos"));
 });
 
 //gets all photos in cache
-router.get("/cache", function (req: any, res: any): void {
+router.get("/cache", function (req: express.Request, res: express.Response): void {
   res.send(photoHelper.getPhotos("resizedPhotos"));
 });
 
-router.post("/", upload.single("file"), function (req: any, res: any): void {
+router.post("/", upload.single("file"), function (req: express.Request, res: express.Response): void {
   const photos = req.file;
   if (!req.file) {
     res.status(400).send("no photo attached");
@@ -58,7 +58,7 @@ router.post("/", upload.single("file"), function (req: any, res: any): void {
 });
 
 // return photo of specfic size.
-router.get("/:name", async function (req: any, res: any): Promise<any> {
+router.get("/:name", async function (req: express.Request, res: express.Response): Promise<any> {
   const name = req.params.name;
   const width = String(req.query.width);
   const height = String(req.query.height);
