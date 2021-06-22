@@ -2,6 +2,7 @@ import supertest from "supertest";
 import photoHelper from "../Routes/Image/imageHelper";
 import server from "../index";
 import path from "path";
+import { response } from "express";
 //import { application } from "express";
 
 supertest("http://localhost:5555");
@@ -33,7 +34,29 @@ describe("simple test for getting list of photos", () => {
 });
 
 describe("GET /photo/", function () {
-  it("should respond with json", function (done) {
+  it("should respond string and 200", function (done) {
     supertest(server).get("/photo").expect(200).end(done);
+  });
+});
+
+describe("GET /photo/list", function () {
+  it("should respond with array of photos", function () {
+    supertest(server).get("/photo/list").expect(200).then(async (response) => {
+    expect(Array.isArray(response.body)).toBeTruthy()
+    });
+  });
+});
+
+describe("GET /photo/cache", function () {
+  it("should respond with array of photos in cache", function () {
+    supertest(server).get("/photo/cache").expect(200).then(async (response) => {
+    expect(Array.isArray(response.body)).toBeTruthy()
+    });
+  });
+});
+
+describe("GET /photo//photo/fjord?height=100&width=100", function () {
+  it("should respond with a photo", function () {
+    supertest(server).get("/photo/fjord?height=100&width=100").expect(200).end();
   });
 });

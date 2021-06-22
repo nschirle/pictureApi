@@ -84,7 +84,34 @@ describe("simple test for getting list of photos", function () {
     }); });
 });
 describe("GET /photo/", function () {
-    it("should respond with json", function (done) {
+    it("should respond string and 200", function (done) {
         supertest_1.default(index_1.default).get("/photo").expect(200).end(done);
+    });
+});
+describe("GET /photo/list", function () {
+    it("should respond with array of photos", function () {
+        var _this = this;
+        supertest_1.default(index_1.default).get("/photo/list").expect(200).then(function (response) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                expect(Array.isArray(response.body)).toBeTruthy();
+                return [2 /*return*/];
+            });
+        }); });
+    });
+});
+describe("GET /photo/cache", function () {
+    it("should respond with array of photos in cache", function () {
+        var _this = this;
+        supertest_1.default(index_1.default).get("/photo/cache").expect(200).then(function (response) { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                expect(Array.isArray(response.body)).toBeTruthy();
+                return [2 /*return*/];
+            });
+        }); });
+    });
+});
+describe("GET /photo//photo/fjord?height=100&width=100", function () {
+    it("should respond with a photo", function () {
+        supertest_1.default(index_1.default).get("/photo/fjord?height=100&width=100").expect(200).end();
     });
 });
