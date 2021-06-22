@@ -3,7 +3,7 @@ import wiki from "./Routes/Image/image";
 
 
 const app = express();
-const port = 80;
+const port = 3000;
 //const wiki = require("./Routes/Image/image");
 // ...
 app.use("/photo", wiki);
