@@ -39,8 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var supertest_1 = __importDefault(require("supertest"));
 var imageHelper_1 = __importDefault(require("../Routes/Image/imageHelper"));
+var index_1 = __importDefault(require("../index"));
 var path_1 = __importDefault(require("path"));
+//import { application } from "express";
 describe("simple test for getting list of photos", function () {
     it('expect the return to be an array of photo names', function () {
         expect(imageHelper_1.default.getPhotos("photos")).toBeInstanceOf(Array);
@@ -78,4 +81,12 @@ describe("simple test for getting list of photos", function () {
             }
         });
     }); });
+});
+describe('GET /photo/', function () {
+    it('should respond with json', function (done) {
+        supertest_1.default(index_1.default)
+            .get('/photos')
+            .expect(200)
+            .end(done);
+    });
 });
